@@ -1,0 +1,33 @@
+version: "3"
+services:
+
+  app:
+    container_name: app
+    build: 
+      context: .
+      dockerfile: ./docker/app.Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - database
+    networks:
+      - luv_network
+  database:
+    container_name: database
+    build:
+      context: .
+      dockerfile: ./docker/db.Dockerfile
+    ports:
+      - 3306:3306
+    networks:
+      - luv_network
+ 
+
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  luv_network:
+    driver: bridge 
